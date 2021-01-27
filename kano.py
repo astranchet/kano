@@ -24,16 +24,24 @@ features = {
         'name' : 'Nommer les conférences',
         'present_column_number': 1, # ;1. Et si AudioConf vous permettait de donner un nom à l’objet de la _réunion, pour que vous et vos invités vous y retrouviez plus facilement ?
         'absent_column_number': 2, # ;2. Actuellement, AudioConf ne me permet pas de donner un nom à une conférence. Je peux seulement l'identifier par sa date et son heure.
+    },
+    2: {
+        'name' : 'Réserver un numéro récurrent',
+        'present_column_number': 3, # ;3. Et si AudioConf vous permettait de conserver le même numéro pour un rendez-vous hebdomadaire ?
+        'absent_column_number': 4, # ;4. Actuellement, AudioConf permet de réserver un numéro de conférence à la fois. Il n'est pas possible de réserver de numéros à l'avance.
     }
 }
 
-# TODO : construire à la volée plutôt
-scores = {
-    1: {
-        'functionnal_scores' : [],
-        'disfunctionnal_scores' : []
-    }
-}
+scores = {}
+
+def init_score_results():
+    for i in features:
+        name = features[i]["name"]
+        scores[i] = {
+            'name':  name,
+            'functionnal_scores' : [],
+            'disfunctionnal_scores' : []
+        }
 
 def read_answers(row):
     # Compute score for each feature
@@ -81,10 +89,11 @@ def compute_avg():
     # Compute average of scores for each feature
     for i in features:
         feature_scores = scores[i]
+        name = features[i]["name"]
         f_score = mean(feature_scores['functionnal_scores'])
         d_score = mean(feature_scores['disfunctionnal_scores'])
         print("« {} » : F {:4.2f}   D {:4.2f}   Catégorie {})".format(
-            features[i]["name"],
+            name,
             f_score, 
             d_score,
             category(f_score, d_score)
@@ -93,6 +102,8 @@ def compute_avg():
 with open(file) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=';')
     line_count = 0
+
+    init_score_results()
 
     # Read answears from file
     for row in csv_reader:
