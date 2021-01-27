@@ -37,6 +37,18 @@ features = {
 }
 
 
+def read_answers(row):
+    # Calculer le score fonctionnel de la feature 1
+    reponse_func = row[csv_dict['feature1_on']]
+    if reponse_func:
+        score = functionnal_score(reponse_func)
+        features[1]['functionnal_score'].append(score)
+
+    # Calculer le score fonctionnel de la feature 2
+    reponse_disfunc = row[csv_dict['feature1_off']]
+    if reponse_disfunc:
+        score = disfunctionnal_score(reponse_disfunc)
+        features[1]['disfunctionnal_score'].append(score)
 
 def functionnal_score(choice):
     # TODO vérifier que choice n'est pas vide
@@ -58,20 +70,12 @@ with open(file) as csvfile:
     line_count = 0
     for row in csv_reader:
         if line_count == 0:
+            # Skipline
             line_count += 1
         else:
             line_count += 1
-            # Calculer le score fonctionnel de la feature 1
-            reponse_func = row[csv_dict['feature1_on']]
-            if reponse_func:
-                score = functionnal_score(reponse_func)
-                features[1]['functionnal_score'].append(score)
+            read_answers(row)
 
-            # Calculer le score fonctionnel de la feature 2
-            reponse_disfunc = row[csv_dict['feature1_off']]
-            if reponse_disfunc:
-                score = disfunctionnal_score(reponse_disfunc)
-                features[1]['disfunctionnal_score'].append(score)
 
 
 
