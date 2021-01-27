@@ -1,5 +1,6 @@
 ﻿import csv
 from numpy import mean
+import matplotlib.pyplot as plt
 
 file = 'results_27012021.csv'
 
@@ -115,6 +116,11 @@ def category(f_score, d_score):
         return "R - reverse"
     return "Q - questionnable "
 
+
+plots_x = []
+plots_y = []
+plots_colors = []
+
 def compute_avg():
     # Compute average of scores for each feature
     for i in features:
@@ -122,12 +128,43 @@ def compute_avg():
         name = features[i]["name"]
         f_score = mean(feature_scores['functionnal_scores'])
         d_score = mean(feature_scores['disfunctionnal_scores'])
-        print("« {} » : F {:4.2f}   D {:4.2f}   Catégorie {}".format(
+        feature_category = category(f_score, d_score)
+        print("{} - « {} » : D {:4.2f}   F {:4.2f}   Catégorie {}".format(
+            i,
             name,
-            f_score, 
-            d_score,
-            category(f_score, d_score)
+            d_score, 
+            f_score,
+            feature_category
         ))
+        plots_x.append(d_score)
+        plots_y.append(f_score)
+        plots_colors.append("aabbcc")
+
+
+def draw_chart():
+    # axes
+    plt.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid')
+    plt.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid')    
+    # cadrant
+    plt.plot([0, 4], [2, 2], color = 'grey', linestyle = 'dashed')
+    plt.plot([2, 2], [0, 4], color = 'grey', linestyle = 'dashed')
+    # cadrant labels
+    plt.annotate("Performance", (3,3))
+    plt.annotate("Must-be", (3,1))
+    plt.annotate("Attractive", (1,3))
+    plt.annotate("Indifferent", (1,1))
+
+    # plots
+    plt.scatter(plots_x, plots_y)
+
+    # plot labels
+    for i in features:
+        name = features[i]["name"]
+        plt.annotate(i, (plots_x[i-1], plots_y[i-1]))
+
+    plt.show()
+
+
 
 with open(file) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=';')
@@ -146,6 +183,11 @@ with open(file) as csvfile:
 
     # Compute average for each features
     compute_avg()
+
+    # TODO : sort features
+
+    # TODO draw plots
+    draw_chart()
 
     # Thanks, bye
     print('{:d} lines processed.'.format(line_count-1))
