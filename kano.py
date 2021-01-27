@@ -69,12 +69,13 @@ def category(f_score, d_score):
         return "I - indifferent"
     elif d_score >= -1 and d_score <= 2 and f_score >= 2:
         return "A - attractive"
-    return "TODO"
-    # R - reverse
-    # Q - questionnable 
-    # P - performance
-    # M - must-be
-
+    elif d_score >= 2 and f_score >= -1 and f_score <= 2:
+        return "M - must-be"
+    elif d_score >= 2 and f_score >= 2:
+        return "P - performance"
+    elif d_score <= 2 or f_score <= 2:
+        return "R - reverse"
+    return "Q - questionnable "
 
 def compute_avg():
     # Compute average of scores for each feature
