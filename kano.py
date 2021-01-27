@@ -64,23 +64,25 @@ def disfunctionnal_score(choice):
     else:
         print('"{}" manque dans le dictionnaire disfonctionnel'.format(choice))
 
+def compute_avg():
+    # Calculer la moyenne de tous les scores fonctionnels de la feature 1
+    print("Score feature1 : F {} D {} ".format(mean(features[1]['functionnal_score']), mean(features[1]['disfunctionnal_score'])))
 
 with open(file) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=';')
     line_count = 0
+
+    # Read answears from file
     for row in csv_reader:
+        # skip header
         if line_count == 0:
-            # Skipline
             line_count += 1
         else:
             line_count += 1
             read_answers(row)
 
+    # Compute average for each features
+    compute_avg()
 
-
-
-    # Calculer la moyenne de tous les scores fonctionnels de la feature 1
-    # print("Score feature1 : {}".format(feature1))
-    print("Score feature1 : F {} D {} ".format(mean(features[1]['functionnal_score']), mean(features[1]['disfunctionnal_score'])))
-
-    print('Processed {:d} lines.'.format(line_count-1))
+    # Thanks, bye
+    print('{:d} lines processed.'.format(line_count-1))
