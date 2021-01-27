@@ -82,7 +82,7 @@ def compute_avg():
         feature_scores = scores[i]
         f_score = mean(feature_scores['functionnal_scores'])
         d_score = mean(feature_scores['disfunctionnal_scores'])
-        print("Fonctionnalité « {} » : F{} D{} (catégorie « {} »)".format(
+        print("« {} » : F {:4.2f}   D {:4.2f}   Catégorie {})".format(
             features[i]["name"],
             f_score, 
             d_score,
