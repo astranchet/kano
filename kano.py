@@ -1,7 +1,7 @@
 ﻿import csv
 from numpy import mean
 
-file = 'kano2.csv'
+file = 'results_27012021.csv'
 
 csv_dict = {
     'id': 0, # N°Obs
