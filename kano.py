@@ -103,11 +103,11 @@ def disfunctionnal_score(choice):
         print('"{}" manque dans le dictionnaire disfonctionnel'.format(choice))
 
 def category(f_score, d_score):
-    if d_score >= -1 and d_score <= 2 and f_score >= -1 and f_score <= 2:
+    if d_score > -1 and d_score < 2 and f_score > -1 and f_score < 2:
         return "I - indifferent"
-    elif d_score >= -1 and d_score <= 2 and f_score >= 2:
+    elif d_score >= -1 and d_score < 2 and f_score >= 2:
         return "A - attractive"
-    elif d_score >= 2 and f_score >= -1 and f_score <= 2:
+    elif d_score >= 2 and f_score >= -1 and f_score < 2:
         return "M - must-be"
     elif d_score >= 2 and f_score >= 2:
         return "P - performance"
