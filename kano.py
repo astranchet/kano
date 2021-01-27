@@ -64,15 +64,30 @@ def disfunctionnal_score(choice):
     else:
         print('"{}" manque dans le dictionnaire disfonctionnel'.format(choice))
 
+def category(f_score, d_score):
+    if d_score >= -1 and d_score <= 2 and f_score >= -1 and f_score <= 2:
+        return "I - indifferent"
+    elif d_score >= -1 and d_score <= 2 and f_score >= 2:
+        return "A - attractive"
+    return "TODO"
+    # R - reverse
+    # Q - questionnable 
+    # P - performance
+    # M - must-be
+
+
 def compute_avg():
     # Compute average of scores for each feature
     for i in features:
         feature_scores = scores[i]
-        print("Fonctionnalité « {} » : F{} D{}".format(
+        f_score = mean(feature_scores['functionnal_scores'])
+        d_score = mean(feature_scores['disfunctionnal_scores'])
+        print("Fonctionnalité « {} » : F{} D{} (catégorie « {} »)".format(
             features[i]["name"],
-            mean(feature_scores['functionnal_scores']), 
-            mean(feature_scores['disfunctionnal_scores']))
-        )
+            f_score, 
+            d_score,
+            category(f_score, d_score)
+        ))
 
 with open(file) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=';')
