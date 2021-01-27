@@ -7,8 +7,8 @@ functionnal_dict = {
     'Je serais ravi·e !': 4,
     'Je trouverais ça bien :)' : 2,
     "Ça ne changerait pas mon usage d'AudioConf" : 0,
-    "Live with" : -1,
-    "Dislike" : -2,
+    "Ça ne m'enchenterait pas, mais je ferais avec." : -1,
+    "Je serais mécontent·e." : -2,
 }
 
 disfunctionnal_dict = {
@@ -29,6 +29,36 @@ features = {
         'name' : 'Réserver un numéro récurrent',
         'present_column_number': 3, # ;3. Et si AudioConf vous permettait de conserver le même numéro pour un rendez-vous hebdomadaire ?
         'absent_column_number': 4, # ;4. Actuellement, AudioConf permet de réserver un numéro de conférence à la fois. Il n'est pas possible de réserver de numéros à l'avance.
+    },
+    3: {
+        'name' : 'Inviter des personnes',
+        'present_column_number': 5, 
+        'absent_column_number': 6,
+    },
+    3: {
+        'name' : 'Ajouter à votre agenda',
+        'present_column_number': 7, 
+        'absent_column_number': 8,
+    },
+    4: {
+        'name' : 'Rendre des personnes silencieuses',
+        'present_column_number': 9, 
+        'absent_column_number': 10,
+    },
+    5: {
+        'name' : 'Savoir qui est présent',
+        'present_column_number': 11, 
+        'absent_column_number': 12,
+    },
+    6: {
+        'name' : 'Avoir accès à un tableau de bord pendant la conférence',
+        'present_column_number': 13, 
+        'absent_column_number': 14,
+    },
+    7: {
+        'name' : 'Recevoir un rapport après la conférence',
+        'present_column_number': 15, 
+        'absent_column_number': 16,
     }
 }
 
@@ -92,7 +122,7 @@ def compute_avg():
         name = features[i]["name"]
         f_score = mean(feature_scores['functionnal_scores'])
         d_score = mean(feature_scores['disfunctionnal_scores'])
-        print("« {} » : F {:4.2f}   D {:4.2f}   Catégorie {})".format(
+        print("« {} » : F {:4.2f}   D {:4.2f}   Catégorie {}".format(
             name,
             f_score, 
             d_score,
