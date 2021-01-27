@@ -3,16 +3,6 @@ from numpy import mean
 
 file = 'results_27012021.csv'
 
-csv_dict = {
-    'id': 0, # N°Obs
-
-    'feature1_on': 1, # ;1. Et si AudioConf vous permettait de donner un nom à l’objet de la _réunion, pour que vous et vos invités vous y retrouviez plus facilement ?
-    'feature1_off': 2, # ;2. Actuellement, AudioConf ne me permet pas de donner un nom à une conférence. Je peux seulement l'identifier par sa date et son heure.
-    
-    'feature2_on': 3, # ;3. Et si AudioConf vous permettait de conserver le même numéro pour un rendez-vous hebdomadaire ?
-    'feature2_off': 4, # ;4. Actuellement, AudioConf permet de réserver un numéro de conférence à la fois. Il n'est pas possible de réserver de numéros à l'avance.
-}
-
 functionnal_dict = {
     'Je serais ravi·e !': 4,
     'Je trouverais ça bien :)' : 2,
@@ -31,42 +21,58 @@ disfunctionnal_dict = {
 
 features = {
     1: {
-        'functionnal_score' : [],
-        'disfunctionnal_score' : []
+        'name' : 'Nommer les conférences',
+        'present_column_number': 1, # ;1. Et si AudioConf vous permettait de donner un nom à l’objet de la _réunion, pour que vous et vos invités vous y retrouviez plus facilement ?
+        'absent_column_number': 2, # ;2. Actuellement, AudioConf ne me permet pas de donner un nom à une conférence. Je peux seulement l'identifier par sa date et son heure.
     }
 }
 
+# TODO : construire à la volée plutôt
+scores = {
+    1: {
+        'functionnal_scores' : [],
+        'disfunctionnal_scores' : []
+    }
+}
 
 def read_answers(row):
-    # Calculer le score fonctionnel de la feature 1
-    reponse_func = row[csv_dict['feature1_on']]
-    if reponse_func:
-        score = functionnal_score(reponse_func)
-        features[1]['functionnal_score'].append(score)
+    # Compute score for each feature
+    for i in features:
+        config = features[i]
 
-    # Calculer le score fonctionnel de la feature 2
-    reponse_disfunc = row[csv_dict['feature1_off']]
-    if reponse_disfunc:
-        score = disfunctionnal_score(reponse_disfunc)
-        features[1]['disfunctionnal_score'].append(score)
+        is_present_response = row[config['present_column_number']]
+        if is_present_response:
+            score = functionnal_score(is_present_response)
+            scores[i]['functionnal_scores'].append(score)
+
+        is_absent_response = row[config['absent_column_number']]
+        if is_absent_response:
+            score = disfunctionnal_score(is_absent_response)
+            scores[i]['disfunctionnal_scores'].append(score)
 
 def functionnal_score(choice):
-    # TODO vérifier que choice n'est pas vide
+    # TODO vérifier que choice n'est pas vide ici plutôt
     if choice in functionnal_dict:
         return functionnal_dict[choice]
     else:
         print('"{}" manque dans le dictionnaire fonctionnel'.format(choice))
 
 def disfunctionnal_score(choice):
-    # TODO vérifier que choice n'est pas vide
+    # TODO vérifier que choice n'est pas vide ici plutôt
     if choice in disfunctionnal_dict:
         return disfunctionnal_dict[choice]
     else:
         print('"{}" manque dans le dictionnaire disfonctionnel'.format(choice))
 
 def compute_avg():
-    # Calculer la moyenne de tous les scores fonctionnels de la feature 1
-    print("Score feature1 : F {} D {} ".format(mean(features[1]['functionnal_score']), mean(features[1]['disfunctionnal_score'])))
+    # Compute average of scores for each feature
+    for i in features:
+        feature_scores = scores[i]
+        print("Fonctionnalité « {} » : F{} D{}".format(
+            features[i]["name"],
+            mean(feature_scores['functionnal_scores']), 
+            mean(feature_scores['disfunctionnal_scores']))
+        )
 
 with open(file) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=';')
