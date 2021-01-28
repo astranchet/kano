@@ -1,6 +1,7 @@
 ﻿import csv
 from numpy import mean
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 file = 'results_27012021.csv'
 
@@ -142,20 +143,23 @@ def compute_avg():
 
 
 def draw_chart():
-    # axes
-    plt.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid')
-    plt.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid')    
-    # cadrant
-    plt.plot([-2, 4], [2, 2], color = 'grey', linestyle = 'dashed')
-    plt.plot([2, 2], [-2, 4], color = 'grey', linestyle = 'dashed')
-    # cadrant labels
-    plt.annotate("Performance", (3,3))
-    plt.annotate("Must-be", (3,1))
-    plt.annotate("Attractive", (1,3))
-    plt.annotate("Indifferent", (1,1))
-    plt.annotate("Repulsive", (-1.5,-1.5))
+    fig, ax = plt.subplots()
 
-    # TODO rectangle
+    # axes
+    ax.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid')
+    ax.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid')    
+    # cadrant
+    ax.plot([-2, 4], [2, 2], color = 'grey', linestyle = 'dashed')
+    ax.plot([2, 2], [-2, 4], color = 'grey', linestyle = 'dashed')
+    # cadrant labels
+    ax.annotate("Performance", (3,3))
+    ax.annotate("Must-be", (3,1))
+    ax.annotate("Attractive", (1,3))
+    ax.annotate("Indifferent", (1,1))
+    ax.annotate("Repulsive", (-1.5,-1.5))
+    # zones
+    rect = patches.Rectangle((0,0),4,4,linewidth=2,edgecolor='r',facecolor='none')
+    ax.add_patch(rect)
 
     # plots
     plt.scatter(plots_x, plots_y)
