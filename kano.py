@@ -146,13 +146,16 @@ def draw_chart():
     plt.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid')
     plt.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid')    
     # cadrant
-    plt.plot([0, 4], [2, 2], color = 'grey', linestyle = 'dashed')
-    plt.plot([2, 2], [0, 4], color = 'grey', linestyle = 'dashed')
+    plt.plot([-2, 4], [2, 2], color = 'grey', linestyle = 'dashed')
+    plt.plot([2, 2], [-2, 4], color = 'grey', linestyle = 'dashed')
     # cadrant labels
     plt.annotate("Performance", (3,3))
     plt.annotate("Must-be", (3,1))
     plt.annotate("Attractive", (1,3))
     plt.annotate("Indifferent", (1,1))
+    plt.annotate("Repulsive", (-1.5,-1.5))
+
+    # TODO rectangle
 
     # plots
     plt.scatter(plots_x, plots_y)
@@ -186,7 +189,6 @@ with open(file) as csvfile:
 
     # TODO : sort features
 
-    # TODO draw plots
     draw_chart()
 
     # Thanks, bye
