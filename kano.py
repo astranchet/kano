@@ -24,13 +24,13 @@ disfunctionnal_dict = {
 features = {
     1: {
         'name' : 'Nommer les conférences',
-        'present_column_number': 1, # ;1. Et si AudioConf vous permettait de donner un nom à l’objet de la _réunion, pour que vous et vos invités vous y retrouviez plus facilement ?
-        'absent_column_number': 2, # ;2. Actuellement, AudioConf ne me permet pas de donner un nom à une conférence. Je peux seulement l'identifier par sa date et son heure.
+        'present_column_number': 1, 
+        'absent_column_number': 2, 
     },
     2: {
         'name' : 'Réserver un numéro récurrent',
-        'present_column_number': 3, # ;3. Et si AudioConf vous permettait de conserver le même numéro pour un rendez-vous hebdomadaire ?
-        'absent_column_number': 4, # ;4. Actuellement, AudioConf permet de réserver un numéro de conférence à la fois. Il n'est pas possible de réserver de numéros à l'avance.
+        'present_column_number': 3,
+        'absent_column_number': 4,
     },
     3: {
         'name' : 'Inviter des personnes',
@@ -152,11 +152,11 @@ def draw_chart():
     ax.plot([-2, 4], [2, 2], color = 'grey', linestyle = 'dashed')
     ax.plot([2, 2], [-2, 4], color = 'grey', linestyle = 'dashed')
     # cadrant labels
-    ax.annotate("Performance", (3,3))
-    ax.annotate("Must-be", (3,1))
-    ax.annotate("Attractive", (1,3))
-    ax.annotate("Indifferent", (1,1))
-    ax.annotate("Repulsive", (-1.5,-1.5))
+    ax.annotate("Performantes", (2.25,3))
+    ax.annotate("Indispensables", (2.25,1))
+    ax.annotate("Attractives", (0.5,3))
+    ax.annotate("Indifferentes", (0.5,1))
+    ax.annotate("Repoussantes", (-1,-2))
     # zones
     rect = patches.Rectangle((0,0),4,4,linewidth=2,edgecolor='r',facecolor='none')
     ax.add_patch(rect)
