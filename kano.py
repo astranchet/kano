@@ -3,7 +3,7 @@ from numpy import mean
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-file = 'results_27012021.csv'
+file = 'results.csv'
 
 functionnal_dict = {
     'Je serais ravi·e !': 4,
@@ -106,21 +106,20 @@ def disfunctionnal_score(choice):
 
 def category(f_score, d_score):
     if d_score > -1 and d_score < 2 and f_score > -1 and f_score < 2:
-        return "I - indifferent"
+        return "Inutile"
     elif d_score >= -1 and d_score < 2 and f_score >= 2:
-        return "A - attractive"
+        return "Attractive"
     elif d_score >= 2 and f_score >= -1 and f_score < 2:
-        return "M - must-be"
+        return "Indispensable"
     elif d_score >= 2 and f_score >= 2:
-        return "P - performance"
+        return "Performante"
     elif d_score <= 2 or f_score <= 2:
-        return "R - reverse"
+        return "Répulsive"
     return "Q - questionnable "
 
 
 plots_x = []
 plots_y = []
-plots_colors = []
 
 def compute_avg():
     # Compute average of scores for each feature
@@ -139,15 +138,16 @@ def compute_avg():
         ))
         plots_x.append(d_score)
         plots_y.append(f_score)
-        plots_colors.append("aabbcc")
 
 
 def draw_chart():
     fig, ax = plt.subplots()
 
     # axes
-    ax.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid')
-    ax.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid')    
+    ax.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid', linewidth=2)
+    ax.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid', linewidth=2)   
+    # axes labels
+
     # cadrant
     ax.plot([-2, 4], [2, 2], color = 'grey', linestyle = 'dashed')
     ax.plot([2, 2], [-2, 4], color = 'grey', linestyle = 'dashed')
@@ -155,7 +155,7 @@ def draw_chart():
     ax.annotate("Performantes", (2.25,3))
     ax.annotate("Indispensables", (2.25,1))
     ax.annotate("Attractives", (0.5,3))
-    ax.annotate("Indifferentes", (0.5,1))
+    ax.annotate("Inutiles", (0.5,1))
     ax.annotate("Repoussantes", (-1,-2))
     # zones
     rect = patches.Rectangle((0,0),4,4,linewidth=2,edgecolor='r',facecolor='none')
