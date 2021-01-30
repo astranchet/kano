@@ -120,6 +120,7 @@ def category(f_score, d_score):
 
 plots_x = []
 plots_y = []
+plots_colors = []
 
 def compute_avg():
     # Compute average of scores for each feature
@@ -138,16 +139,18 @@ def compute_avg():
         ))
         plots_x.append(d_score)
         plots_y.append(f_score)
+        plots_colors.append('deeppink')
 
 
 def draw_chart():
     fig, ax = plt.subplots()
 
+    # titres
+    ax.set(xlabel='Sans la feature', ylabel='Avec la feature',
+       title='Quelles features sont attendues par les utilisateurs')
     # axes
     ax.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid', linewidth=2)
     ax.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid', linewidth=2)   
-    # axes labels
-
     # cadrant
     ax.plot([-2, 4], [2, 2], color = 'grey', linestyle = 'dashed')
     ax.plot([2, 2], [-2, 4], color = 'grey', linestyle = 'dashed')
@@ -156,18 +159,19 @@ def draw_chart():
     ax.annotate("Indispensables", (2.25,1))
     ax.annotate("Attractives", (0.5,3))
     ax.annotate("Inutiles", (0.5,1))
-    ax.annotate("Repoussantes", (-1,-2))
+    ax.annotate("Repoussantes", (-2,-1))
     # zones
-    rect = patches.Rectangle((0,0),4,4,linewidth=2,edgecolor='r',facecolor='none')
+    rect = patches.Rectangle((0,0),4,4,linewidth=2,edgecolor='green',facecolor='mintcream', alpha = 0.5, zorder=1)
     ax.add_patch(rect)
 
     # plots
-    plt.scatter(plots_x, plots_y)
-
+    ax.scatter(plots_x, plots_y, s=40,c=plots_colors, edgecolors='none', zorder=2)
+    # todo : standard deviation des plots
     # plot labels
     for i in features:
-        name = features[i]["name"]
-        plt.annotate(i, (plots_x[i-1], plots_y[i-1]))
+        ax.annotate(i, xy=(plots_x[i-1], plots_y[i-1]))
+
+    fig.savefig("kano.png")
 
     plt.show()
 
