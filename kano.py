@@ -1,5 +1,5 @@
 ﻿import csv
-from numpy import mean
+import numpy as num
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
@@ -120,6 +120,8 @@ def category(f_score, d_score):
 
 plots_x = []
 plots_y = []
+errors_x = []
+errors_y = []
 plots_colors = []
 
 def compute_avg():
@@ -127,8 +129,8 @@ def compute_avg():
     for i in features:
         feature_scores = scores[i]
         name = features[i]["name"]
-        f_score = mean(feature_scores['functionnal_scores'])
-        d_score = mean(feature_scores['disfunctionnal_scores'])
+        f_score = num.mean(feature_scores['functionnal_scores'])
+        d_score = num.mean(feature_scores['disfunctionnal_scores'])
         feature_category = category(f_score, d_score)
         print("{} - « {} » : D {:4.2f}   F {:4.2f}   Catégorie {}".format(
             i,
@@ -138,7 +140,10 @@ def compute_avg():
             feature_category
         ))
         plots_x.append(d_score)
+        errors_x.append(num.var(feature_scores['disfunctionnal_scores']))
         plots_y.append(f_score)
+        errors_y.append(num.var(feature_scores['functionnal_scores']))
+
         plots_colors.append('deeppink')
 
 
@@ -166,9 +171,9 @@ def draw_chart():
 
     # plots
     ax.scatter(plots_x, plots_y, s=40,c=plots_colors, edgecolors='none', zorder=2)
-    # todo : standard deviation des plots
     # plot labels
     for i in features:
+        # ax.errorbar(x=plots_x[i-1], y=plots_y[i-1], xerr=errors_x[i-1], yerr=errors_y[i-1], ecolor='grey')
         ax.annotate(i, xy=(plots_x[i-1], plots_y[i-1]))
 
     fig.savefig("kano.png")
