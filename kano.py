@@ -37,27 +37,27 @@ features = {
         'present_column_number': 5, 
         'absent_column_number': 6,
     },
-    3: {
+    4: {
         'name' : 'Ajouter à votre agenda',
         'present_column_number': 7, 
         'absent_column_number': 8,
     },
-    4: {
+    5: {
         'name' : 'Rendre des personnes silencieuses',
         'present_column_number': 9, 
         'absent_column_number': 10,
     },
-    5: {
+    6: {
         'name' : 'Savoir qui est présent',
         'present_column_number': 11, 
         'absent_column_number': 12,
     },
-    6: {
+    7: {
         'name' : 'Avoir accès à un tableau de bord pendant la conférence',
         'present_column_number': 13, 
         'absent_column_number': 14,
     },
-    7: {
+    8: {
         'name' : 'Recevoir un rapport après la conférence',
         'present_column_number': 15, 
         'absent_column_number': 16,
