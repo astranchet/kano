@@ -151,8 +151,7 @@ def draw_chart():
     fig, ax = plt.subplots()
 
     # titres
-    ax.set(xlabel='Sans la feature', ylabel='Avec la feature',
-       title='Quelles features sont attendues par les utilisateurs')
+    ax.set(title='Features attendues par les utilisateurs')
     # axes
     ax.plot([-2, 4], [0, 0], color = 'grey', linestyle = 'solid', linewidth=2)
     ax.plot([0, 0], [-2, 4], color = 'grey', linestyle = 'solid', linewidth=2)   
