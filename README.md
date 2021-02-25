@@ -2,7 +2,7 @@
 
 Analyze your user research to find the most attractive functionnalities
 
-![Kano Chart][https://github.com/astranchet/kano/raw/main/kano.png]
+![Kano Chart](https://github.com/astranchet/kano/raw/main/kano.png)
 
 ### Built With
 
@@ -32,7 +32,7 @@ To get a local copy up and running follow these steps.
    ```
 
 5. Enjoy the graph and the results
-![Kano Chart][https://github.com/astranchet/kano/raw/main/kano.png]
+![Kano Chart](https://github.com/astranchet/kano/raw/main/kano.png)
 ```sh
    1 - « Nommer les conférences » : D 1.06   F 2.26   Catégorie Attractive
    2 - « Réserver un numéro récurrent » : D 1.47   F 2.69   Catégorie Attractive
